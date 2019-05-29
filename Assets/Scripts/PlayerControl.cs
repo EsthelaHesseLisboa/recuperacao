@@ -22,7 +22,7 @@ Rigidbody2D rb;
         if (other.gameObject.CompareTag("Gift")) {
             StopMusicAndTape();
             AudioManager.instance.PlaySoundLevelComplete(gameObject);
-            Destroy(gameObject);
+            DestroyPlayer();
             LevelManager.instance.ShowLevelCompletePanel();
         }        
         else if (other.gameObject.layer == LayerMask.NameToLayer("Enemies")) {
@@ -42,7 +42,7 @@ Rigidbody2D rb;
         StopMusicAndTape();
         AudioManager.instance.PlaySoundFail(gameObject);
         SFXManager.instance.ShowDieParticles(gameObject);
-        Destroy(gameObject);   
+        DestroyPlayer();   
         LevelManager.instance.ShowGameOverPanel();     
     }
     void Impulse (float force){
@@ -50,7 +50,10 @@ Rigidbody2D rb;
         rb.AddForce(Vector3.up * force, ForceMode2D.Impulse);
     }
 
-
+    void DestroyPlayer(){
+        Camera.main.GetComponent <CameraFollow>().TurnOff();
+        Destroy(gameObject);
+    }
 
  
 
